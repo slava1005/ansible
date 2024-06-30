@@ -10,60 +10,66 @@
 #### установить vector. 5. Запустите `ansible-lint site.yml` и исправьте ошибки, если они есть.
 Ошибок не было.
 #### 6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
-<details> <summary>Вывод консоли:</summary> ```sh [skvorchenkov@localhost playbook]$ ansible-playbook -i 
-inventory/prod.yml site.yml --check PLAY [Install Clickhouse] 
-****************************************************** TASK [Gathering Facts] 
-********************************************************* ok: [clickhouse-01] TASK [Get clickhouse distrib] 
-************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
-[clickhouse-01] => (item=clickhouse-server) ok: [clickhouse-01] => (item=clickhouse-common-static) TASK 
-[Install clickhouse packages] ********************************************* ok: [clickhouse-01] TASK [Create 
-database] ********************************************************* skipping: [clickhouse-01] PLAY [Install 
-Vector] ********************************************************** TASK [Gathering Facts] 
-********************************************************* ok: [clickhouse-02] TASK [Download vector 
-packages] ************************************************ ok: [clickhouse-02] TASK [Install vector 
-packages] ************************************************* ok: [clickhouse-02] TASK [Apply vector template] 
-*************************************************** ok: [clickhouse-02] TASK [Change vector systemd unit] 
-********************************************** ok: [clickhouse-02] PLAY RECAP 
-********************************************************************* clickhouse-01 : ok=3 changed=0 
-unreachable=0 failed=0 skipped=1 rescued=0 ignored=0 clickhouse-02 : ok=5 changed=0 unreachable=0 failed=0 
-skipped=0 rescued=0 ignored=0 ``` </details>
+<details> <summary>Вывод консоли:</summary> 
+  ```sh [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --check 
+  PLAY [Install Clickhouse] ****************************************************** 
+  TASK [Gathering Facts] ********************************************************* ok: [clickhouse-01] 
+  TASK [Get clickhouse distrib] ************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
+[clickhouse-01] => (item=clickhouse-server) ok: [clickhouse-01] => (item=clickhouse-common-static) 
+  TASK [Install clickhouse packages] ********************************************* ok: [clickhouse-01] 
+  TASK [Create database] ********************************************************* skipping: [clickhouse-01] 
+  PLAY [Install Vector] ********************************************************** 
+  TASK [Gathering Facts] ********************************************************* ok: [clickhouse-02] 
+  TASK [Download vector packages] ************************************************ ok: [clickhouse-02] 
+  TASK [Install vector packages] ************************************************* ok: [clickhouse-02] 
+  TASK [Apply vector template] *************************************************** ok: [clickhouse-02] 
+  TASK [Change vector systemd unit] ********************************************** ok: [clickhouse-02] 
+  PLAY RECAP ********************************************************************* clickhouse-01 : 
+  ok=3 changed=0 unreachable=0 failed=0 skipped=1 rescued=0 ignored=0 clickhouse-02 : 
+  ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
+  ``` </details>
+  
 #### 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе 
 #### произведены.
-<details> <summary>Вывод консоли:</summary> ```sh [skvorchenkov@localhost playbook]$ ansible-playbook -i 
-inventory/prod.yml site.yml --diff PLAY [Install Clickhouse] 
-****************************************************** TASK [Gathering Facts] 
-********************************************************* ok: [clickhouse-01] TASK [Get clickhouse distrib] 
-************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
-[clickhouse-01] => (item=clickhouse-server) ok: [clickhouse-01] => (item=clickhouse-common-static) TASK 
-[Install clickhouse packages] ********************************************* ok: [clickhouse-01] TASK [Create 
-database] ********************************************************* ok: [clickhouse-01] PLAY [Install 
-Vector] ********************************************************** TASK [Gathering Facts] 
-********************************************************* ok: [clickhouse-02] TASK [Download vector 
-packages] ************************************************ ok: [clickhouse-02] TASK [Install vector 
-packages] ************************************************* ok: [clickhouse-02] TASK [Apply vector template] 
-*************************************************** ok: [clickhouse-02] TASK [Change vector systemd unit] 
-********************************************** ok: [clickhouse-02] PLAY RECAP 
-********************************************************************* clickhouse-01 : ok=4 changed=0 
-unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 clickhouse-02 : ok=5 changed=0 unreachable=0 failed=0 
-skipped=0 rescued=0 ignored=0 ``` </details>
+<details> <summary>Вывод консоли:</summary> 
+  ```sh [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
+  PLAY [Install Clickhouse] ***************************************************** 
+  TASK [Gathering Facts] ********************************************************* ok: [clickhouse-01] 
+  TASK [Get clickhouse distrib] ************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
+[clickhouse-01] => (item=clickhouse-server) ok: [clickhouse-01] => (item=clickhouse-common-static) 
+  TASK [Install clickhouse packages] ********************************************* ok: [clickhouse-01] 
+  TASK [Create database] ********************************************************* ok: [clickhouse-01] 
+  PLAY [Install Vector] ********************************************************** 
+  TASK [Gathering Facts] ********************************************************* ok: [clickhouse-02] 
+  TASK [Download vector packages] ************************************************ ok: [clickhouse-02] 
+  TASK [Install vector packages] ************************************************* ok: [clickhouse-02] 
+  TASK [Apply vector template] *************************************************** ok: [clickhouse-02] 
+  TASK [Change vector systemd unit] ********************************************** ok: [clickhouse-02] 
+  PLAY RECAP ********************************************************************* clickhouse-01 : 
+  ok=4 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 clickhouse-02 : 
+  ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
+  ``` </details>
+  
 #### 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
-<details> <summary>Вывод консоли:</summary> ```sh [skvorchenkov@localhost playbook]$ ansible-playbook -i 
-inventory/prod.yml site.yml --diff PLAY [Install Clickhouse] 
-****************************************************** TASK [Gathering Facts] 
-********************************************************* ok: [clickhouse-01] TASK [Get clickhouse distrib] 
-************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
-[clickhouse-01] => (item=clickhouse-server) ok: [clickhouse-01] => (item=clickhouse-common-static) TASK 
-[Install clickhouse packages] ********************************************* ok: [clickhouse-01] TASK [Create 
-database] ********************************************************* ok: [clickhouse-01] PLAY [Install 
-Vector] ********************************************************** TASK [Gathering Facts] 
-********************************************************* ok: [clickhouse-02] TASK [Download vector 
-packages] ************************************************ ok: [clickhouse-02] TASK [Install vector 
-packages] ************************************************* ok: [clickhouse-02] TASK [Apply vector template] 
-*************************************************** ok: [clickhouse-02] TASK [Change vector systemd unit] 
-********************************************** ok: [clickhouse-02] PLAY RECAP 
-********************************************************************* clickhouse-01 : ok=4 changed=0 
-unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 clickhouse-02 : ok=5 changed=0 unreachable=0 failed=0 
-skipped=0 rescued=0 ignored=0 ``` </details>
+<details> <summary>Вывод консоли:</summary> 
+  ```sh [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
+  PLAY [Install Clickhouse] ****************************************************** 
+  TASK [Gathering Facts] ********************************************************* ok: [clickhouse-01] 
+  TASK [Get clickhouse distrib] ************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
+[clickhouse-01] => (item=clickhouse-server) ok: [clickhouse-01] => (item=clickhouse-common-static) 
+  TASK [Install clickhouse packages] ********************************************* ok: [clickhouse-01] 
+  TASK [Create database] ********************************************************* ok: [clickhouse-01] 
+  PLAY [Install Vector] ********************************************************** 
+  TASK [Gathering Facts] ********************************************************* ok: [clickhouse-02] 
+  TASK [Download vector packages] ************************************************ ok: [clickhouse-02] 
+  TASK [Install vector packages] ************************************************* ok: [clickhouse-02] 
+  TASK [Apply vector template] *************************************************** ok: [clickhouse-02] 
+  TASK [Change vector systemd unit] ********************************************** ok: [clickhouse-02] 
+  PLAY RECAP ********************************************************************* clickhouse-01 : 
+  ok=4 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 clickhouse-02 : 
+  ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
+  ``` </details>
+  
 #### 9. Подготовьте README.md-файл по своему playbook. В нём должно быть описано: что делает playbook, какие 
 #### у него есть параметры и теги. Пример качественной документации ansible playbook по 
 #### [ссылке](https://github.com/opensearch-project/ansible-playbook).
