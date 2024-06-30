@@ -11,6 +11,7 @@
 Ошибок не выявлено.
 #### 6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
 <details> <summary>Вывод консоли:</summary> 
+  
   ```
   [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --check 
   PLAY [Install Clickhouse] ****************************************************** 
@@ -28,12 +29,14 @@
   PLAY RECAP ********************************************************************* clickhouse-01 : 
   ok=3 changed=0 unreachable=0 failed=0 skipped=1 rescued=0 ignored=0 clickhouse-02 : 
   ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
-  ``` 
+  ```
+
 </details>
   
 #### 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе 
 #### произведены.
-<details> <summary>Вывод консоли:</summary> 
+<details> <summary>Вывод консоли:</summary>
+  
   ```
   [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
   PLAY [Install Clickhouse] ***************************************************** 
@@ -56,6 +59,7 @@
   
 #### 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
 <details> <summary>Вывод консоли:</summary> 
+  
   ```
   [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
   PLAY [Install Clickhouse] ****************************************************** 
