@@ -8,10 +8,11 @@
 #### 3. При создании tasks рекомендую использовать модули: `get_url`, `template`, `unarchive`, `file`. 4. 
 #### Tasks должны: скачать дистрибутив нужной версии, выполнить распаковку в выбранную директорию, 
 #### установить vector. 5. Запустите `ansible-lint site.yml` и исправьте ошибки, если они есть.
-Ошибок не было.
+Ошибок не выявлено.
 #### 6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
 <details> <summary>Вывод консоли:</summary> 
-  ```sh [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --check 
+  ```
+  [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --check 
   PLAY [Install Clickhouse] ****************************************************** 
   TASK [Gathering Facts] ********************************************************* ok: [clickhouse-01] 
   TASK [Get clickhouse distrib] ************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
@@ -27,12 +28,14 @@
   PLAY RECAP ********************************************************************* clickhouse-01 : 
   ok=3 changed=0 unreachable=0 failed=0 skipped=1 rescued=0 ignored=0 clickhouse-02 : 
   ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
-  ``` </details>
+  ``` 
+</details>
   
 #### 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе 
 #### произведены.
 <details> <summary>Вывод консоли:</summary> 
-  ```sh [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
+  ```
+  [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
   PLAY [Install Clickhouse] ***************************************************** 
   TASK [Gathering Facts] ********************************************************* ok: [clickhouse-01] 
   TASK [Get clickhouse distrib] ************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
@@ -48,11 +51,13 @@
   PLAY RECAP ********************************************************************* clickhouse-01 : 
   ok=4 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 clickhouse-02 : 
   ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
-  ``` </details>
+  ``` 
+</details>
   
 #### 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
 <details> <summary>Вывод консоли:</summary> 
-  ```sh [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
+  ```
+  [slava@localhost playbook]$ ansible-playbook -i inventory/prod.yml site.yml --diff 
   PLAY [Install Clickhouse] ****************************************************** 
   TASK [Gathering Facts] ********************************************************* ok: [clickhouse-01] 
   TASK [Get clickhouse distrib] ************************************************** ok: [clickhouse-01] => (item=clickhouse-client) ok: 
@@ -68,7 +73,8 @@
   PLAY RECAP ********************************************************************* clickhouse-01 : 
   ok=4 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 clickhouse-02 : 
   ok=5 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 
-  ``` </details>
+  ``` 
+</details>
   
 #### 9. Подготовьте README.md-файл по своему playbook. В нём должно быть описано: что делает playbook, какие 
 #### у него есть параметры и теги. Пример качественной документации ansible playbook по 
